@@ -11,6 +11,15 @@ const io = new Server(expressServer);
 
 app.get('/', (req, res) => {
     res.sendFile(join(__dirname, "index.html"))
+});
+
+
+io.on('connection', (socket) => {
+    console.log("A new User Connected!");
+
+    socket.on('chat-message', (data) => {
+        io.emit('message-transfer', data)
+    });
 })
 
 
